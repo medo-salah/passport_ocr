@@ -332,7 +332,7 @@ if not st.session_state.gdpr_consent:
     with consent_col1:
         if st.button("I Agree", key="consent_agree"):
             st.session_state.gdpr_consent = True
-            st.experimental_rerun()
+            st.rerun()
     with consent_col2:
         if st.button("I Decline", key="consent_decline"):
             st.error("You must consent to data processing to use this application")
@@ -407,7 +407,7 @@ with st.expander("ℹ️ Privacy & GDPR Information"):
             log_data_processing_activity("delete", {"scope": "all_data"})
             
             st.success("✅ All your data and uploaded files have been deleted from memory")
-            st.experimental_rerun()
+            st.rerun()
 
 # ---- GPU SETUP ----
 use_gpu = display_gpu_status("main")
@@ -571,7 +571,7 @@ elif not tessdata_path and st.sidebar.button("Fix Tessdata Path"):
     if st.sidebar.button("Apply Path"):
         os.environ["TESSDATA_PREFIX"] = custom_tessdata_path
         st.sidebar.success(f"✅ Set TESSDATA_PREFIX to {custom_tessdata_path}")
-        st.experimental_rerun()
+        st.rerun()
 
 if enable_client_side_processing:
     if not tesseract_installed:
@@ -1438,7 +1438,7 @@ with upload_tab:
             
             # Apply styling only if there are rows in the DataFrame
             if not validation_df.empty:
-                styled_df = validation_df.style.applymap(highlight_status, subset=['Status'])
+                styled_df = validation_df.style.map(highlight_status, subset=['Status'])
                 st.dataframe(styled_df)
             else:
                 st.info("No validation results available")
@@ -1580,7 +1580,7 @@ with upload_tab:
                 log_data_processing_activity("delete", {"scope": "current_document"})
                 
                 st.success("✅ Document data and uploaded files deleted from memory")
-                st.experimental_rerun()
+                st.rerun()
 
 with batch_tab:
     st.markdown('<p class="upload-header">📁 Upload multiple documents</p>', unsafe_allow_html=True)
@@ -1611,7 +1611,7 @@ with batch_tab:
             log_data_processing_activity("delete", {"scope": "batch_data"})
             
             st.success("✅ All batch processing data and uploaded files deleted")
-            st.experimental_rerun()
+            st.rerun()
     
     batch_files = st.file_uploader("Choose passport images", type=["jpg", "jpeg", "png"], accept_multiple_files=True, key="batch_uploader", label_visibility="collapsed")
     
@@ -1835,7 +1835,7 @@ def safe_streamlit_app():
             # Clear session state
             for key in list(st.session_state.keys()):
                 del st.session_state[key]
-            st.experimental_rerun()
+            st.rerun()
 
 # Call the wrapper function
 if __name__ == "__main__":
@@ -3188,7 +3188,7 @@ with admin_tab:
                         if not notification.get('read', False):
                             if st.button("Mark Read", key=f"read_{notification.get('id', '')}"):
                                 mark_notification_read(notification.get('id', ''))
-                                st.rerun()
+                    st.rerun()
 
         # Create sub-tabs for different admin functions
         feedback_tab, analytics_tab, database_tab, settings_tab, system_tab, logs_tab = st.tabs(["Feedback Management", "Analytics Dashboard", "Database Management", "Settings", "System Status", "Logs"])

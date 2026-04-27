@@ -7,6 +7,8 @@ from typing import Optional, List, Dict, Any, Union, Literal
 import io
 import numpy as np
 import cv2
+import base64
+import requests
 from PIL import Image
 import logging
 import easyocr
@@ -911,10 +913,3 @@ The API will be available at http://localhost:8000
 Access the API documentation at http://localhost:8000/docs
 
 '''
-
-
-
-
-
-
-
